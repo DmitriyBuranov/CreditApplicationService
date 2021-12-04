@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CreditApplicationService.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v1/[controller]")]
     public class CreditApplicationsController : ControllerBase
     {
         private readonly IRepository<CreditApplication> _repositoryCreditApplications;
