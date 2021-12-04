@@ -18,6 +18,8 @@ namespace CreditApplicationService.DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
             modelBuilder.Entity<Client>(entity =>
             {
                 entity.Property(e => e.Name)
@@ -38,6 +40,11 @@ namespace CreditApplicationService.DataAccess.Data
                     .IsRequired();
                 entity.Property(e => e.TermsInMonths)
                     .IsRequired();
+
+                entity.HasOne(d => d.Client)
+                    .WithMany(p => p.CreditApplications)
+                    .HasForeignKey(d => d.ClientId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             base.OnModelCreating(modelBuilder);

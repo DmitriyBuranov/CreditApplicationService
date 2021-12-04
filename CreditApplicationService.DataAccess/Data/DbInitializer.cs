@@ -54,6 +54,8 @@ namespace CreditApplicationService.DataAccess.Data
                     CreatedAt = DateTime.UtcNow,
                 }
             );
+
+            context.SaveChanges();
         }
 
 

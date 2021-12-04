@@ -8,5 +8,6 @@ namespace CreditApplicationService.Core.Domain
         public decimal AmountOfCredit { get; set; }
         public int TermsInMonths { get; set; }
         public Boolean Result { get; set; }
+        public virtual Client Client { get; set; }
     }
 }
