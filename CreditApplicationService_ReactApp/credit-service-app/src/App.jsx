@@ -7,7 +7,9 @@ import {
 } from "react-router-dom";
 import ClientsPage from "./Components/ClientsPage/ClientsPage"
 import CreateClientPage from "./Components/CreateClientPage/CreateClientPage";
-import CreditApplicationPage from "./Components/CreditApplicationPage/CreditApplicationPage";
+import CreateCreditApplicationPage from "./Components/CreateCreditApplicationPage/CreateCreditApplicationPage";
+import UpdateClientPage from './Components/UpdateClientPage/UpdateClientPage';
+import CreditApplicationsPage from './Components/CreditApplicationsPage/CreditApplicationsPage';
 
 function App() {
   return (
@@ -15,12 +17,17 @@ function App() {
       <Router>
         <NavBar />
         <Routes>
-          <Route path="/ClientsPage" element={<ClientsPage />}>
+          <Route path="/ClientsPage" element={<ClientsPage />} />
+          <Route path="/CreateClientPage" element={<CreateClientPage />} />
+          <Route path="/UpdateClientPage"  >
+            <Route index />
+            <Route path=":id" element={<UpdateClientPage />} />
           </Route>
-          <Route path="/CreateClientPage" element={CreateClientPage}>
+          <Route path="/CreateCreditApplicationPage" >
+            <Route index />
+            <Route path=":id" element={<CreateCreditApplicationPage />} />
           </Route>
-          <Route path="/CreditApplicationPage" element={CreditApplicationPage}>
-          </Route>
+          <Route path="/CreditApplicationsPage" element={<CreditApplicationsPage />} />
         </Routes>
       </Router>
     </div>

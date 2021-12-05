@@ -17,8 +17,8 @@ const NavBar = () => {
               <Link to="/ClientsPage">
                 <Nav.Link href="/ClientsPage" ><strong>Clients</strong></Nav.Link>
               </Link>
-              <Link to="/CreditApplicationPage" >
-                <Nav.Link href="#CreditApplicationPage"><strong>Credit application</strong></Nav.Link>
+              <Link to="/CreditApplicationsPage" >
+                <Nav.Link href="#CreditApplicationsPage"><strong>Credit applications</strong></Nav.Link>
               </Link>
             </Nav>
           </Navbar.Collapse>

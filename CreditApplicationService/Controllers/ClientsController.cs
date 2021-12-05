@@ -99,5 +99,17 @@ namespace CreditApplicationService.Controllers
 
             return Ok();
         }
+
+        /// <summary>
+        /// Gets List of Clients with this Surname
+        /// </summary>
+        /// /// <param name="surname">Client surname</param>
+        /// <returns></returns>
+        [HttpGet("BySurname{surname}")]
+        public async Task<IActionResult> GetClientsWIthSurnameAsync(string surname)
+        {
+            var entities = await _repositoryClients.GetAllAsync(x => x.Surname == surname);
+            return Ok(entities);
+        }
     }
 }
