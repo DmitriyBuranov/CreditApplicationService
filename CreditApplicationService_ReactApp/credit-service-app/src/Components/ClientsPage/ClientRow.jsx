@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Container, Row, Col, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
+import {helper} from "../../Services/helper"
 
 function ClientRow(props) {
 
     function onDeleteClient(e) {
-        console.log("start delete");
         fetch('api/v1/Clients?id=' + props.client.id, {
             method: 'DELETE',
         })
@@ -16,15 +16,13 @@ function ClientRow(props) {
             .catch(error => console.error('Unable to get CLients.', error));
     };
 
-
-
     return (
         <tr>
             <td>{props.client.id}</td>
             <td>{props.client.surname}</td>
             <td>{props.client.name}</td>
-            <td>{props.client.birthday}</td>
-            <td>{props.client.createdAt}</td>
+            <td>{helper.FormatDate(props.client.birthday)}</td>
+            <td>{helper.FormatDate(props.client.createdAt)}</td>
             <td>
                 <Row>
                     <Col>

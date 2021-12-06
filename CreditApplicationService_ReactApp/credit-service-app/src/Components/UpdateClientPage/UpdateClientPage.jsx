@@ -1,21 +1,25 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useEffect, useState } from 'react';
 import {useParams} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { Button, Form, Container, Row, Col} from 'react-bootstrap'
+import {clientService} from "../../Services/ClientsServices"
+import {helper} from "../../Services/helper"
 
 function UpdateClientPage(props) {
+
+    let navigate = useNavigate();
 
     const params = useParams();
     const id = Number(params.id);
     const [client, setClient] = useState([]);
 
     useEffect(() => {
-        fetch('/api/v1/Clients/' + id)
-            .then(response => response.json())
+        clientService.GetClientById(id)
             .then((data) => {
                 console.log(data);
                 setClient(data);
-                setClient(client => ({ ...client, birthday: formatDate(data.birthday) }));
+                setClient(client => ({ ...client, birthday: helper.FormatDate(data.birthday) }));
             })
             .catch(error => console.error('Unable to get Client by id.', error));                 
     }, [id]);
@@ -27,44 +31,19 @@ function UpdateClientPage(props) {
     };
 
     function updateClient(){
-        const dataForRequest = {
-            name: client.name,
-            surname: client.surname,
-            birthday: new Date(client.birthday).toISOString(),
-            createdAt: new Date(client.createdAt).toISOString(),
-            salary: Number(client.salary)
-        }
-
-        fetch("/api/v1/Clients/"+ id, {
-            method: 'PUT', 
-            body: JSON.stringify(dataForRequest) ,
-            headers: {
-                'Content-Type': 'application/json'
-              },
-        })
+        clientService.UpdateClient(client)
         .then((data) => {
             console.log(data);
         })
-        .catch(error => console.error('Unable to update Client', error));   
-    }
-
-    function formatDate(date) {
-        date = new Date(date);
-        var dd = date.getDate();
-        if (dd < 10) dd = '0' + dd;
-      
-        var mm = date.getMonth() + 1;
-        if (mm < 10) mm = '0' + mm;
-      
-        var yyyy = date.getFullYear();
-      
-        return yyyy+ '-' + mm + '-' + dd;
+        .catch(error => console.error('Unable to update Client', error)); 
+        
+        navigate("/ClientsPage");
     }
 
     return (
         <div>
             <Container>
-                <p>Update a client</p>
+                <h1>Update a client</h1>
                 <Form onSubmit={updateClient} onChange={handleChanges}>
                     <Row className="mb-3" xs={2} md={4} lg={4}>
 

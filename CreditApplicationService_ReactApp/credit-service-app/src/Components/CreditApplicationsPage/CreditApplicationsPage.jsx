@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Container, Row, Col, Table } from 'react-bootstrap'
+import {helper} from "../../Services/helper"
 
 function CreditApplicationsPage() {
 
@@ -10,13 +11,7 @@ function CreditApplicationsPage() {
     //TO DO убрать запрос в сервис
 
     useEffect(() => {
-        fetch('api/v1/CreditApplications/WithCLientsInfoall' + searchExpression)
-            .then(response => response.json())
-            .then((data) => {
-                console.log(data);
-                setCredits(data);
-            })
-            .catch(error => console.error('Unable to get CLients.', error));
+        search();
     }, []);
 
 
@@ -27,13 +22,13 @@ function CreditApplicationsPage() {
                 console.log(data);
                 setCredits(data);
             })
-            .catch(error => console.error('Unable to get Clients by Surname.', error));;
+            .catch(error => console.error('Unable to get credits with clients', error));;
     };
 
 
 
     function handleChanges(e) {
-        console.log("Catch changes in surname");
+        console.log("Catch changes");
         setSearchExpression(e.currentTarget.value);
     };
 
@@ -44,7 +39,7 @@ function CreditApplicationsPage() {
     return (
         <div>
             <Container>
-                <p>Credit applications</p>
+                <h1>Credit applications</h1>
                 <Form>
                     <Form.Label>Search by Result</Form.Label>
                     <Row>
@@ -80,8 +75,8 @@ function CreditApplicationsPage() {
                                 <td>{credit.clientId}</td>
                                 <td>{credit.surname}</td>
                                 <td>{credit.name}</td>
-                                <td>{credit.createdAt}</td>
-                                <td>{credit.result}</td>
+                                <td>{helper.FormatDate(credit.createdAt)}</td>
+                                <td>{(credit.result)? "Approved": "Denied"}</td>
                             </tr>
                         ))}
 

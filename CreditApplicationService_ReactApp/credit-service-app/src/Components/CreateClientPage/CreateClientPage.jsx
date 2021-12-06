@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { Button, Form, Container, Row, Col} from 'react-bootstrap'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function CreateClientPage() {
-
+    let navigate = useNavigate();
     const [client, setClient] = useState([]);
 
     function handleChanges(e) {
@@ -33,6 +33,8 @@ function CreateClientPage() {
             console.log(data);
         })
         .catch(error => console.error('Unable to create Client', error));   
+
+        navigate("/ClientsPage");
     }
 
 
@@ -41,7 +43,7 @@ function CreateClientPage() {
     return (
         <div>
             <Container>
-                <p>Create a client</p>
+                <h1>Create a client</h1>
                 <Form onSubmit={createClient} onChange={handleChanges}>
                     <Row className="mb-3" xs={2} md={4} lg={4}>
                         <Form.Group as={Col} controlId="formGridSurname">

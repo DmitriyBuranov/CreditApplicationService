@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button, Form, Container, Row, Col, Card } from 'react-bootstrap'
-
+import { helper } from "../../Services/helper"
 
 
 function CreateCreditApplicationPage() {
@@ -10,6 +10,7 @@ function CreateCreditApplicationPage() {
     const params = useParams();
     const id = Number(params.id);
     const [client, setClient] = useState([]);
+    let navigate = useNavigate();
 
     useEffect(() => {
         fetch('/api/v1/Clients/' + id)
@@ -17,7 +18,7 @@ function CreateCreditApplicationPage() {
             .then((data) => {
                 console.log(data);
                 setClient(data);
-                setClient(client => ({ ...client, birthday: formatDate(data.birthday) }));
+                setClient(client => ({ ...client, birthday: helper.FormatDate(data.birthday) }));
             })
             .catch(error => console.error('Unable to get Client by id.', error));
     }, [id]);
@@ -28,18 +29,7 @@ function CreateCreditApplicationPage() {
         e.preventDefault();
     };
 
-    function formatDate(date) {
-        date = new Date(date);
-        var dd = date.getDate();
-        if (dd < 10) dd = '0' + dd;
 
-        var mm = date.getMonth() + 1;
-        if (mm < 10) mm = '0' + mm;
-
-        var yyyy = date.getFullYear();
-
-        return yyyy + '-' + mm + '-' + dd;
-    }
 
     function createCreditApplication() {
         const dataForRequest = {
@@ -56,15 +46,19 @@ function CreateCreditApplicationPage() {
             },
         })
             .then((data) => {
-                console.log((data)? "Approved!" : "Denied :(");
+                console.log((data) ? "Approved!" : "Denied :(");
+
             })
             .catch(error => console.error('Unable to create credit application', error));
+
+        navigate("/CreditApplicationsPage");
+
     }
 
     return (
         <div>
             <Container>
-                <p>Apply for a credit</p>
+                <h1>Apply for a credit</h1>
                 <Form >
                     <Card>
                         <Row className="mb-3 ms-2" xs={2} md={4} lg={4}>

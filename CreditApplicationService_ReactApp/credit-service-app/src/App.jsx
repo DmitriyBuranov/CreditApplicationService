@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import NavBar from "./Components/Navbar/NavBar";
-import { Redirect } from 'react-router'
 import {
   BrowserRouter as Router,
   Routes,

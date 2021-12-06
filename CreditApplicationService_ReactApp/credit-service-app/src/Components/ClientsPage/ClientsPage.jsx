@@ -2,22 +2,15 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Container, Row, Col, Table } from 'react-bootstrap'
 import ClientRow from './ClientRow';
+import {clientService} from "../../Services/ClientsServices"
 
 function ClientsPage() {
 
     const [clients, setClients] = useState([]);
     const [searchExpression, setSearchExpression] = useState();
 
-    //TO DO убрать запрос в сервис
-
     useEffect(() => {
-        fetch('api/v1/Clients' + (isBlank(searchExpression)? "": "/BySurname" + searchExpression))
-            .then(response => response.json())
-            .then((data) => {
-                console.log(data);
-                setClients(data);
-            })
-            .catch(error => console.error('Unable to get CLients.', error));              
+        search();   
     }, []);
 
     function handleChanges(e){
@@ -25,13 +18,8 @@ function ClientsPage() {
         setSearchExpression(e.currentTarget.value);
     };
 
-    function isBlank(str) {
-        return (!str || /^\s*$/.test(str));
-    };
-
     function search(){
-        fetch('api/v1/Clients' + (isBlank(searchExpression)? "": "/BySurname" + searchExpression))
-        .then(response => response.json())
+        clientService.GetClients(searchExpression)
         .then((data) => {
             console.log(data);
             setClients(data);
@@ -42,7 +30,7 @@ function ClientsPage() {
     return (
         <div>
             <Container>
-                <p>Clients</p>
+                <h1>Clients</h1>
                 <Form>
                     <Form.Label>Search by Surame</Form.Label>
                     <Row>
