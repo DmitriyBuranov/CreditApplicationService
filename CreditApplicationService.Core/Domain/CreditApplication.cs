@@ -9,5 +9,7 @@ namespace CreditApplicationService.Core.Domain
         public int TermsInMonths { get; set; }
         public Boolean Result { get; set; }
         public virtual Client Client { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 }

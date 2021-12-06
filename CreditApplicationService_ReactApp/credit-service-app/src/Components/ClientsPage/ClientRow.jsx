@@ -41,7 +41,7 @@ function ClientRow(props) {
                     </svg>
                     </Col>
                     <Col>
-                        <Link to = {{ pathname: `/UpdateClientPage/${props.client.id}` }} >
+                        <Link to = {{ pathname: `/CreateCreditApplicationPage/${props.client.id}` }} >
                             <Button size="sm">Apply for credit</Button>
                         </Link>
                     </Col>

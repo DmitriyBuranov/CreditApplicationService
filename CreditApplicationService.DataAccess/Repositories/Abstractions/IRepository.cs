@@ -15,5 +15,6 @@ namespace CreditApplicationService.DataAccess.Repositories.Abstractions
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
         Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> predicate);
+        Task<List<Ts>> GetManySelectAsync<Ts>(Expression<Func<T, bool>> where, Expression<Func<T, Ts>> select);
     }
 }

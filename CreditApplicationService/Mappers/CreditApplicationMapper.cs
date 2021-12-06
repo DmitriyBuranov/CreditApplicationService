@@ -14,6 +14,7 @@ namespace CreditApplicationService.Mappers
             creditApplication.ClientId = request.ClientId;
             creditApplication.AmountOfCredit = request.AmountOfCredit;
             creditApplication.TermsInMonths = request.TermsInMonths;
+            creditApplication.CreatedAt = DateTime.UtcNow;
 
             return creditApplication;
         }

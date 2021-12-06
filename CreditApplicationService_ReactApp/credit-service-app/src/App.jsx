@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import NavBar from "./Components/Navbar/NavBar";
+import { Redirect } from 'react-router'
 import {
   BrowserRouter as Router,
   Routes,
@@ -28,6 +29,7 @@ function App() {
             <Route path=":id" element={<CreateCreditApplicationPage />} />
           </Route>
           <Route path="/CreditApplicationsPage" element={<CreditApplicationsPage />} />
+          <Route exact path="/" element = {<ClientsPage />}/>
         </Routes>
       </Router>
     </div>

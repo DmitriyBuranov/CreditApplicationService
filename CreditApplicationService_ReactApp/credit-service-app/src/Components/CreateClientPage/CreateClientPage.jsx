@@ -46,24 +46,24 @@ function CreateClientPage() {
                     <Row className="mb-3" xs={2} md={4} lg={4}>
                         <Form.Group as={Col} controlId="formGridSurname">
                             <Form.Label>Surname</Form.Label>
-                            <Form.Control type="text" name="surname" />
+                            <Form.Control type="text" name="surname" required/>
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="formGridName">
                             <Form.Label>Name</Form.Label>
-                            <Form.Control type="text"  name="name" />
+                            <Form.Control type="text"  name="name" required/>
                         </Form.Group>
                     </Row>
 
                     <Row className="mb-3" xs={2} md={4} lg={4}>
                         <Form.Group as={Col} controlId="formGridBirthday">
                             <Form.Label>Birthday</Form.Label>
-                            <Form.Control type="date"  name="birthday"/>
+                            <Form.Control type="date"  name="birthday" required/>
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="formGridSalary">
                             <Form.Label>Salary</Form.Label>
-                            <Form.Control type="number"  name="salary"/>
+                            <Form.Control type="number"  name="salary" required/>
                         </Form.Group>
                     </Row>
 

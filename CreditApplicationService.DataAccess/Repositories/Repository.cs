@@ -62,5 +62,10 @@ namespace CreditApplicationService.DataAccess.Repositories
             return await _dbSet.AsNoTracking().Where(predicate).ToListAsync();
         }
 
+        public virtual async Task<List<Ts>> GetManySelectAsync<Ts>(Expression<Func<T, bool>> where, Expression<Func<T, Ts>> select)
+        {
+            return await _dbSet.Where(where).Select(select).ToListAsync();
+        }
+
     }
 }

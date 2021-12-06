@@ -1,8 +1,45 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-
+import React, { useEffect, useState } from 'react';
 import { Button, Form, Container, Row, Col, Table } from 'react-bootstrap'
 
 function CreditApplicationsPage() {
+
+    const [credits, setCredits] = useState([]);
+    const [searchExpression, setSearchExpression] = useState();
+
+    //TO DO убрать запрос в сервис
+
+    useEffect(() => {
+        fetch('api/v1/CreditApplications/WithCLientsInfoall' + searchExpression)
+            .then(response => response.json())
+            .then((data) => {
+                console.log(data);
+                setCredits(data);
+            })
+            .catch(error => console.error('Unable to get CLients.', error));
+    }, []);
+
+
+    function search() {
+        fetch('api/v1/CreditApplications/WithCLientsInfo' + searchExpression)
+            .then(response => response.json())
+            .then((data) => {
+                console.log(data);
+                setCredits(data);
+            })
+            .catch(error => console.error('Unable to get Clients by Surname.', error));;
+    };
+
+
+
+    function handleChanges(e) {
+        console.log("Catch changes in surname");
+        setSearchExpression(e.currentTarget.value);
+    };
+
+    function isBlank(str) {
+        return (!str || /^\s*$/.test(str));
+    };
 
     return (
         <div>
@@ -12,15 +49,16 @@ function CreditApplicationsPage() {
                     <Form.Label>Search by Result</Form.Label>
                     <Row>
                         <Col md={4}>
-                            <Form.Select name="searchVariant">
-                                <option>Approved</option>
-                                <option>Denied</option>
-                            </Form.Select> 
+                            <Form.Select name="type" defaultValue="All" onChange={handleChanges}>
+                                <option name="approved">Approved</option>
+                                <option name="denied">Denied</option>
+                                <option name="all">All</option>
+                            </Form.Select>
                         </Col>
                         <Col>
-                            <Button variant="secondary">Show</Button>
+                            <Button variant="secondary" onClick={search}>Show</Button>
                         </Col>
-                    </Row>  
+                    </Row>
                 </Form>
 
                 <Table className="mt-3" striped bordered hover>
@@ -35,14 +73,18 @@ function CreditApplicationsPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+
+                        {credits.map((credit, i) => (
+                            <tr  key={i}>
+                                <td>{credit.creditId}</td>
+                                <td>{credit.clientId}</td>
+                                <td>{credit.surname}</td>
+                                <td>{credit.name}</td>
+                                <td>{credit.createdAt}</td>
+                                <td>{credit.result}</td>
+                            </tr>
+                        ))}
+
                     </tbody>
                 </Table>
             </Container>
